@@ -1,8 +1,8 @@
 {
-    "name": "vovanmix/laravel5-billing-braintree",
+    "name": "chinatown34/laravel5-billing-braintree",
     "description": "Braintree Service Provider for Laravel 5",
     "keywords": ["braintree","braintree laravel 5"],
-    "homepage": "https://github.com/vovanmix/laravel5-billing-braintree",
+    "homepage": "https://github.com/chinatown34/laravel5-billing-braintree",
     "license": "MIT",
     "authors": [
         {
