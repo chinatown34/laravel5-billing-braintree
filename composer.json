@@ -26,5 +26,5 @@
             "Vovanmix\\Laravel5BillingBraintree": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
