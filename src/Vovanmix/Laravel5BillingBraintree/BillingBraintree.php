@@ -27,6 +27,7 @@ class BillingBraintree implements BillingInterface {
 		Braintree_Configuration::environment(
 			Config::get('billing_braintree.environment')
 		);
+		echo Braintree_Configuration::environment();
 
 		Braintree_Configuration::merchantId(
 			Config::get('billing_braintree.merchantId')
@@ -180,6 +181,52 @@ class BillingBraintree implements BillingInterface {
 
 		if ($result->success) {
 			return $result->transaction->id;
+		} else {
+			foreach($result->errors->deepAll() AS $error) {
+				throw new Exception($error->code . ": " . $error->message . "\n");
+			}
+		}
+		return false;
+
+		/**
+		 * $result->success
+		# true
+
+		$result->transaction->status
+		# e.g. 'submitted_for_settlement'
+
+		$result->transaction->type
+		 */
+
+		/**
+		"authorization_expired"
+		"authorized"
+		"authorizing"
+		"settlement_pending"
+		"settlement_confirmed"
+		"settlement_declined"
+		"failed"
+		"gateway_rejected"
+		"processor_declined"
+		"settled"
+		"settling"
+		"submitted_for_settlement"
+		"voided"
+		 */
+	}
+
+	public function createSale($nonce, $price){
+		$result = Braintree_Transaction::sale([
+			'amount' => $price,
+			'merchantAccountId' => 'BookmantaxLLC',
+			'paymentMethodNonce' => $nonce,
+			'options' => [
+				'submitForSettlement' => True
+			]
+		]);
+
+		if ($result->success) {
+			return $result;
 		} else {
 			foreach($result->errors->deepAll() AS $error) {
 				throw new Exception($error->code . ": " . $error->message . "\n");
