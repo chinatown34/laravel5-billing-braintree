@@ -215,24 +215,29 @@ class BillingBraintree implements BillingInterface {
 		 */
 	}
 
-	public function createSale($nonce, $price){
+	public function createSale($nonce, $price, $fname, $lname, $address, $city, $state, $zip, $merchantAccountId){
 		$result = Braintree_Transaction::sale([
 			'amount' => $price,
-			'merchantAccountId' => 'BookmantaxLLC',
+			'merchantAccountId' => $merchantAccountId,
 			'paymentMethodNonce' => $nonce,
+			'billing' => [
+				'firstName' => $fname,
+				'lastName' => $lname,
+				'streetAddress' => $address,
+				'locality' => $city,
+				'region' => $state,
+				'postalCode' => $zip
+			],
 			'options' => [
 				'submitForSettlement' => True
 			]
 		]);
-
-		if ($result->success) {
-			return $result;
-		} else {
-			foreach($result->errors->deepAll() AS $error) {
-				throw new Exception($error->code . ": " . $error->message . "\n");
-			}
-		}
-		return false;
+		/*
+		echo "<hr>";
+		print_r($result);
+		echo "<hr>";
+		*/
+		return $result;
 
 		/**
 		 * $result->success
