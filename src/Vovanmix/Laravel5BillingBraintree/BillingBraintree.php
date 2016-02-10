@@ -27,7 +27,7 @@ class BillingBraintree implements BillingInterface {
 		Braintree_Configuration::environment(
 			Config::get('billing_braintree.environment')
 		);
-		echo Braintree_Configuration::environment();
+		//echo Braintree_Configuration::environment();
 
 		Braintree_Configuration::merchantId(
 			Config::get('billing_braintree.merchantId')
