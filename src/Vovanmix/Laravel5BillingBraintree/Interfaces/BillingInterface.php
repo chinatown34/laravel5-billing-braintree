@@ -86,5 +86,5 @@ interface BillingInterface {
 	 */
 	public function getPlanSummary($plan_id, $addOns = [], $discounts = [], $removeAddOns = [], $removeDiscounts = []);
 
-	public function createSale($nonce, $price);
+	public function createSale($nonce, $price, $fname, $lname, $address, $city, $state, $zip, $merchantAccountId);
 }
